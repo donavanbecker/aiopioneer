@@ -25,6 +25,7 @@ from .params import (
     PARAM_ALWAYS_POLL,
     PARAM_DEBUG_LISTENER,
     PARAM_DEBUG_COMMAND,
+    PARAM_R_RESPONSE_UNSUPPORTED,
 )
 from .util import (
     sock_set_keepalive,
@@ -362,6 +363,7 @@ class AVRConnection:
     async def _wait_for_response(self, command: str, response_prefix: str) -> str:
         """Wait for a response to a request."""
         debug_command = self.params.get_param(PARAM_DEBUG_COMMAND)
+        r_response_unsupported = self.params.get_param(PARAM_R_RESPONSE_UNSUPPORTED)
 
         while True:
             await self._response_event.wait()
@@ -377,7 +379,9 @@ class AVRConnection:
                             "AVR command %s returned response: %s", command, response
                         )
                     return response
-                if is_error_response(response):
+                if is_error_response(
+                    response, r_response_unsupported=r_response_unsupported
+                ):
                     raise AVRCommandResponseError(command=command, response=response)
 
     async def send_raw_request(

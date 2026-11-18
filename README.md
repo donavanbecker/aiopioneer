@@ -69,6 +69,7 @@ Where a parameter is specified at more than one level, the higher priority param
 | `disable_auto_query` | bool | `false` | Set to `true` to disable auto queries on first zone power on for all functions apart from core functionality (power, source, volume and mute)
 | `am_frequency_step` | int | `null` | Optional setting to configure the tuner AM frequency step. If not specified, it will be queried from the AVR if supported by the AVR, otherwise it will be determined by stepping the frequency up and down when the AM tuner is first used
 | `always_poll` | bool | `false` | Always poll the AVR every _scan_interval_. If set to `false`, out of band status responses from the AVR will reset the polling interval
+| `r_response_unsupported` | bool | `false` | On some older AVRs (eg. VSX-823), unsupported commands are answered with a bare `R` response instead of `E04`. This option treats a bare `R` response as an unsupported command error so that the command fails immediately (without retries) instead of waiting for the full response timeout, which otherwise slows down initial refresh considerably
 | `debug_listener` | bool | `false` | Enables additional debug logging for the listener task
 | `debug_updater` | bool | `false` | Enables additional debug logging for the updater task
 | `debug_command` | bool | `false` | Enables additional debug logging for commands sent and responses received

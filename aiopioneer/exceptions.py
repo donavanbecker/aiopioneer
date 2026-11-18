@@ -209,13 +209,19 @@ CommandResponseErrorFormatText = {
 }
 
 
-def is_error_response(response: str) -> bool:
+def is_error_response(response: str, r_response_unsupported: bool = False) -> bool:
     """Return True if a raw AVR response indicates a command error.
 
-    Some older AVRs (eg. VSX-823) reply with a bare "R" instead of E04 to
-    commands they do not support.
+    Error responses ("Exx" and "B00") are recognised for all AVRs. Some older
+    AVRs (eg. VSX-823) reply with a bare "R" instead of E04 to commands they do
+    not support. This response is only treated as an error if
+    r_response_unsupported is set (see PARAM_R_RESPONSE_UNSUPPORTED), as other
+    AVRs may not use "R" in this way.
     """
-    return response.startswith("E") or response in ("B00", "R")
+    if response.startswith("E") or response == "B00":
+        return True
+    return r_response_unsupported and response == "R"
+
 
 CommandUnavailableErrorFormatText = {
     "tuner": "AVR tuner is unavailable",

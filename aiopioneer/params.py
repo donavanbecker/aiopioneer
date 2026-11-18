@@ -24,6 +24,7 @@ PARAM_POWER_ON_VOLUME_BOUNCE = "power_on_volume_bounce"
 PARAM_VOLUME_STEP_ONLY = "volume_step_only"
 PARAM_IGNORE_VOLUME_CHECK = "ignore_volume_check"
 PARAM_ALWAYS_POLL = "always_poll"
+PARAM_R_RESPONSE_UNSUPPORTED = "r_response_unsupported"
 PARAM_RETRY_COUNT = "retry_count"
 PARAM_DEBUG_LISTENER = "debug_listener"
 PARAM_DEBUG_UPDATER = "debug_updater"
@@ -117,6 +118,7 @@ PARAM_DEFAULTS = {
     PARAM_VOLUME_STEP_ONLY: False,
     PARAM_IGNORE_VOLUME_CHECK: True,
     PARAM_ALWAYS_POLL: False,
+    PARAM_R_RESPONSE_UNSUPPORTED: False,
     PARAM_RETRY_COUNT: 4,
     PARAM_DEBUG_LISTENER: False,
     PARAM_DEBUG_UPDATER: False,
@@ -580,6 +582,12 @@ PARAM_MODEL_DEFAULTS = OrderedDict(
                 PARAM_HDZONE_VOLUME_REQUIREMENTS: [],
                 PARAM_DISABLED_LISTENING_MODES: PARAM_DISABLED_LISTENING_MODES_SC_2023,
                 PARAM_SPEAKER_SYSTEM_MODES: PARAM_SPEAKER_SYSTEM_MODES_SC_LX79,
+            },
+        ),
+        (
+            r"^VSX-823",
+            {
+                PARAM_R_RESPONSE_UNSUPPORTED: True,
             },
         ),
         (r"^VSX-45", {PARAM_HDZONE_VOLUME_REQUIREMENTS: []}),
